@@ -107,3 +107,14 @@ C:\Users\Mohammad\Desktop\CG_Project\CG Lesson8\CG\obj\Debug\CG.csproj.CoreCompi
 C:\Users\Mohammad\Desktop\CG_Project\CG Lesson8\CG\obj\Debug\CG.csproj.CopyComplete
 C:\Users\Mohammad\Desktop\CG_Project\CG Lesson8\CG\obj\Debug\CG.exe
 C:\Users\Mohammad\Desktop\CG_Project\CG Lesson8\CG\obj\Debug\CG.pdb
+C:\Users\Mohammad\Desktop\CG_Project\CG\obj\Debug\CG.csprojAssemblyReference.cache
+C:\Users\Mohammad\Desktop\CG_Project\CG\obj\Debug\CG.Form.resources
+C:\Users\Mohammad\Desktop\CG_Project\CG\obj\Debug\CG.Properties.Resources.resources
+C:\Users\Mohammad\Desktop\CG_Project\CG\obj\Debug\CG.csproj.GenerateResource.cache
+C:\Users\Mohammad\Desktop\CG_Project\CG\obj\Debug\CG.csproj.CoreCompileInputs.cache
+C:\Users\Mohammad\Desktop\CG_Project\CG\obj\Debug\CG.exe
+C:\Users\Mohammad\Desktop\CG_Project\CG\obj\Debug\CG.pdb
+C:\Users\Mohammad\Desktop\CG_Project\CG\bin\Debug\CG.exe.config
+C:\Users\Mohammad\Desktop\CG_Project\CG\bin\Debug\CG.exe
+C:\Users\Mohammad\Desktop\CG_Project\CG\bin\Debug\CG.pdb
+C:\Users\Mohammad\Desktop\CG_Project\CG\obj\Debug\CG.csproj.CopyComplete
