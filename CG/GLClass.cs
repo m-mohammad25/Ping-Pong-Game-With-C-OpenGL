@@ -13,9 +13,9 @@ namespace CG
     {
         private float Hors_bound = 2.85f;
         private int Score_P1 = 0, Score_P2 = 0;
-        private const float Pad_bound = 2.09f, Pad_height=1.3f,Pad_width=2,Pad_velo=0.5f;
-        private float P1_Pad_y = 0, P2_Pad_y = 0, Pad_x = 7;
-        private float ball_velo_x = -0.0003f, ball_velo_y = 0.0005f, speed_inc = 0.5f;
+        private const float Pad_bound = 2.09f, Pad_height=1.3f,Pad_width=0.09f,Pad_velo=0.5f;
+        private float P1_Pad_y = 0, P2_Pad_y = 0, Pad_x = 4.9f;
+        private float ball_velo_x = 0.0003f, ball_velo_y = 0, speed_inc = 0.0005f;
         private float ball_pos_x = 0f, ball_pos_y = 0, ball_rad = 0.15f;
         private bool P1_up_press = false, P1_down_press = false,
                      P2_up_Press = false, P2_down_press = false;
@@ -92,14 +92,39 @@ namespace CG
             {
                 ball_velo_y = -ball_velo_y;
             }
-
-            if(ball_pos_x - ball_rad - Pad_width < -Pad_x && ball_pos_x - ball_rad  < -Pad_x)
+            //left Pad P1
+            if(/*ball_pos_x - ball_rad - Pad_width < -Pad_x && */ ball_pos_x - ball_rad -0.1  <= -Pad_x)
             {
                 if (ball_pos_y < P1_Pad_y + Pad_height && ball_pos_y > P1_Pad_y - Pad_height)
                 {
                     ball_velo_x = -ball_velo_x;
-                    //ball_velo_x += speed_inc;
+                    ball_velo_x += speed_inc;
+                   // ball_pos_x +=speed_inc;
                 }
+            }
+            //right Pad P2
+            if (/*ball_pos_x + ball_rad + Pad_width > Pad_x && */ ball_pos_x + ball_rad + 0.1 >= Pad_x)
+            {
+                if (ball_pos_y < P2_Pad_y + Pad_height && ball_pos_y > P2_Pad_y - Pad_height)
+                {
+                    ball_velo_x = -ball_velo_x;
+                    ball_velo_x -= speed_inc;
+                   // ball_pos_x -= 2 * speed_inc;
+                }
+            }
+            //score Left Pad P1
+            if (ball_pos_x + ball_rad > Pad_x + Pad_width + 0.53)
+            {
+                Score_P1++;
+                ball_pos_x = ball_pos_y = 0;
+
+            }
+            
+            //score Right Pad P2
+            if (ball_pos_x - ball_rad < -Pad_x - Pad_width - 0.53)
+            {
+                Score_P2++;
+                ball_pos_x = ball_pos_y = 0;
             }
 
 
