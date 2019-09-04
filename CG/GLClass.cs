@@ -1,5 +1,6 @@
 ﻿
 using CsGL.OpenGL;
+  
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace CG
         private float ball_pos_x = 0f, ball_pos_y = 0, ball_rad = 0.15f;
         private bool P1_up_press = false, P1_down_press = false,
                      P2_up_Press = false, P2_down_press = false;
-
+        private bool start = false;
         private double eyeX = 0, eyeY = 0, eyeZ = 7,
                        centerX = 0, centerY = 0, centerZ = 0,
                        upX = 0, upY = 1, upZ = 0;
@@ -52,7 +53,11 @@ namespace CG
 
             GL.glPopMatrix();
         }
-
+        void drawScores()
+        {
+           
+          
+        }
 
 
 
@@ -133,33 +138,37 @@ namespace CG
         public override void Refresh()
         {
             base.Refresh();
-            if (P2_up_Press && P2_Pad_y < Pad_bound)
+            if (start)
             {
-                P2_Pad_y += Pad_velo;
-                P2_up_Press = false;
-                
-            }
-            if (P2_down_press && P2_Pad_y > -Pad_bound)
-            {
-                P2_Pad_y -= Pad_velo;
-                P2_down_press = false;
-                
-            }
+                if (P2_up_Press && P2_Pad_y < Pad_bound)
+                {
+                    P2_Pad_y += Pad_velo;
+                    P2_up_Press = false;
 
-            if (P1_up_press && P1_Pad_y < Pad_bound )
-            {
-                P1_Pad_y += Pad_velo;
-                P1_up_press = false;
+                }
+                if (P2_down_press && P2_Pad_y > -Pad_bound)
+                {
+                    P2_Pad_y -= Pad_velo;
+                    P2_down_press = false;
 
+                }
+
+                if (P1_up_press && P1_Pad_y < Pad_bound)
+                {
+                    P1_Pad_y += Pad_velo;
+                    P1_up_press = false;
+
+                }
+                if (P1_down_press && P1_Pad_y > -Pad_bound)
+                {
+                    P1_Pad_y -= Pad_velo;
+                    P1_down_press = false;
+
+                }
+
+                play();
             }
-            if (P1_down_press && P1_Pad_y > -Pad_bound)
-            {
-                P1_Pad_y -= Pad_velo;
-                P1_down_press = false;
-
-            }
-
-            play();
+           
 
         }
 
@@ -202,6 +211,10 @@ namespace CG
             {
                 P1_down_press = true;
 
+            }
+            if (key.KeyCode == Keys.Space)
+            {
+                start = !start;
             }
         }
 
