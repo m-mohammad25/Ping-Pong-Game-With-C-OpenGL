@@ -1,6 +1,5 @@
 ﻿
 using CsGL.OpenGL;
-  
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +11,28 @@ namespace CG
 {
     public class GLClass : OpenGLControl
     {
+
+
+        
         private float Hors_bound = 2.85f;
-        private int Score_P1 = 0, Score_P2 = 0;
+        public int Score_P1 = 0, Score_P2 = 0;
         private const float Pad_bound = 2.09f, Pad_height=1.3f,Pad_width=0.09f,Pad_velo=0.5f;
         private float P1_Pad_y = 0, P2_Pad_y = 0, Pad_x = 4.9f;
-        private float ball_velo_x = 0.0003f, ball_velo_y = 0, speed_inc = 0.0005f;
+        private float ball_velo_x = 0.003f, ball_velo_y = 0.0003f, speed_inc = 0.0005f;
         private float ball_pos_x = 0f, ball_pos_y = 0, ball_rad = 0.15f;
         private bool P1_up_press = false, P1_down_press = false,
                      P2_up_Press = false, P2_down_press = false;
-        private bool start = false;
+        private bool start,pause = false;
         private double eyeX = 0, eyeY = 0, eyeZ = 7,
                        centerX = 0, centerY = 0, centerZ = 0,
                        upX = 0, upY = 1, upZ = 0;
+
+        Random r1;
+
+         System.Media.SoundPlayer hitPlayer = new System.Media.SoundPlayer(@"Sounds\hit.wav");
+        System.Media.SoundPlayer tablePlayer = new System.Media.SoundPlayer(@"Sounds\table.wav");
+
+
 
         void drawPaddle(float x, float y)
         {
@@ -96,6 +105,7 @@ namespace CG
             if (ball_pos_y + ball_rad > Hors_bound || ball_pos_y - ball_rad < -Hors_bound)
             {
                 ball_velo_y = -ball_velo_y;
+                tablePlayer.Play();
             }
             //left Pad P1
             if(/*ball_pos_x - ball_rad - Pad_width < -Pad_x && */ ball_pos_x - ball_rad -0.1  <= -Pad_x)
@@ -103,7 +113,8 @@ namespace CG
                 if (ball_pos_y < P1_Pad_y + Pad_height && ball_pos_y > P1_Pad_y - Pad_height)
                 {
                     ball_velo_x = -ball_velo_x;
-                    ball_velo_x += speed_inc;
+                    hitPlayer.Play();
+                   // ball_velo_x += speed_inc;
                    // ball_pos_x +=speed_inc;
                 }
             }
@@ -113,15 +124,20 @@ namespace CG
                 if (ball_pos_y < P2_Pad_y + Pad_height && ball_pos_y > P2_Pad_y - Pad_height)
                 {
                     ball_velo_x = -ball_velo_x;
-                    ball_velo_x -= speed_inc;
-                   // ball_pos_x -= 2 * speed_inc;
+                    hitPlayer.Play();
+                    // ball_velo_x -= speed_inc;
+                    // ball_pos_x -= 2 * speed_inc;
                 }
             }
             //score Left Pad P1
             if (ball_pos_x + ball_rad > Pad_x + Pad_width + 0.53)
             {
                 Score_P1++;
+                Form._Form.update_score_P1(Score_P1);
                 ball_pos_x = ball_pos_y = 0;
+                r1 = new Random();
+                ball_velo_x *= (float)Math.Pow(-1, r1.Next());
+                ball_velo_y *= (float)Math.Pow(-1, r1.Next(100));
 
             }
             
@@ -129,7 +145,11 @@ namespace CG
             if (ball_pos_x - ball_rad < -Pad_x - Pad_width - 0.53)
             {
                 Score_P2++;
+                Form._Form.update_score_P2(Score_P2);
                 ball_pos_x = ball_pos_y = 0;
+                r1 = new Random();
+                ball_velo_x *= (float)Math.Pow(-1, r1.Next());
+                ball_velo_y *= (float)Math.Pow(-1, r1.Next(100));
             }
 
 
@@ -138,7 +158,7 @@ namespace CG
         public override void Refresh()
         {
             base.Refresh();
-            if (start)
+            if (start && !pause)
             {
                 if (P2_up_Press && P2_Pad_y < Pad_bound)
                 {
@@ -214,7 +234,18 @@ namespace CG
             }
             if (key.KeyCode == Keys.Space)
             {
-                start = !start;
+                if (!start)
+                {
+                    r1 = new Random();
+                    ball_velo_x *= (float)Math.Pow(-1, r1.Next());
+                    ball_velo_y *= (float)Math.Pow(-1, r1.Next(100));
+                    start = true;
+                }
+            }
+            if(key.KeyCode == Keys.Enter)
+            {
+                if(start)
+                pause = !pause; 
             }
         }
 
