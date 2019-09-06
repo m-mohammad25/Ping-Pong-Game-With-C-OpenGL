@@ -21,8 +21,10 @@ namespace CG
             view.Parent = this;
             view.Dock = DockStyle.Fill;
             view.Show();
+            startPlayer.Play();
             _Form = this;
         }
+        public System.Media.SoundPlayer startPlayer = new System.Media.SoundPlayer(@"Sounds\start.wav"); 
         public static Form _Form;
         public void update_score_P1(int msg)
         {

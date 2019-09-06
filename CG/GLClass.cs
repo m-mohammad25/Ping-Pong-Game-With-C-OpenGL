@@ -29,9 +29,10 @@ namespace CG
 
         Random r1;
 
-         System.Media.SoundPlayer hitPlayer = new System.Media.SoundPlayer(@"Sounds\hit.wav");
+        System.Media.SoundPlayer hitPlayer = new System.Media.SoundPlayer(@"Sounds\hit.wav");
         System.Media.SoundPlayer tablePlayer = new System.Media.SoundPlayer(@"Sounds\table.wav");
-
+        System.Media.SoundPlayer scorePoint = new System.Media.SoundPlayer(@"Sounds\point.wav");
+        System.Media.SoundPlayer pausePlayer = new System.Media.SoundPlayer(@"Sounds\pause.wav");
 
 
         void drawPaddle(float x, float y)
@@ -133,6 +134,7 @@ namespace CG
             if (ball_pos_x + ball_rad > Pad_x + Pad_width + 0.53)
             {
                 Score_P1++;
+                scorePoint.Play();
                 Form._Form.update_score_P1(Score_P1);
                 ball_pos_x = ball_pos_y = 0;
                 r1 = new Random();
@@ -145,6 +147,7 @@ namespace CG
             if (ball_pos_x - ball_rad < -Pad_x - Pad_width - 0.53)
             {
                 Score_P2++;
+                scorePoint.Play();
                 Form._Form.update_score_P2(Score_P2);
                 ball_pos_x = ball_pos_y = 0;
                 r1 = new Random();
@@ -240,12 +243,16 @@ namespace CG
                     ball_velo_x *= (float)Math.Pow(-1, r1.Next());
                     ball_velo_y *= (float)Math.Pow(-1, r1.Next(100));
                     start = true;
+                    Form._Form.startPlayer.Stop();
                 }
             }
             if(key.KeyCode == Keys.Enter)
             {
-                if(start)
-                pause = !pause; 
+                if (start)
+                {
+                    pause = !pause;
+                    pausePlayer.Play();
+                }
             }
         }
 
